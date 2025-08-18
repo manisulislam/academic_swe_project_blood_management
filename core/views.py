@@ -7,15 +7,14 @@ from blood_stock.forms import ContactForm
 from django.db.models import Q 
 from django.contrib import messages
 from django.contrib.auth.forms import UserChangeForm
+from django.utils import timezone
+
 def home(request):
     return render(request, 'core/home.html')
 
-
 def announcement_list(request):
-    announcements = announcements = Announcement.objects.filter(Q(expiry_date__gte=now().date()) | Q(expiry_date__isnull=True))
-    return render(request, 'core/list.html', {'announcements': announcements})
-
-
+    
+    announcements = Announcement.objects.all()
 
 def announcement_create(request):
     if request.method == 'POST':
