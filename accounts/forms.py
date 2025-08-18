@@ -3,8 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
-    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES)
-
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'role', 'password1', 'password2']
+        print('username')
+        fields = ['username', 'first_name', 'last_name', 'email', 'role', 'password1', 'password2']

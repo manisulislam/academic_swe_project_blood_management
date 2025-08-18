@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  /* Container */
+  .form-container {
+    max-width: 900px;
+    margin: 2rem auto 4rem auto;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    color: #b91c1c;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.8rem;
+  }
+
+  .form-section {
+    grid-column: 1 / -1;
+    background: #fef2f2;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 5px solid #dc2626;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  input, select, textarea {
+
+    padding: 0.65rem 0.9rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #b91c1c;
+    box-shadow: 0 0 8px rgba(185,28,28,0.3);
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .help-text {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.2rem;
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  button {
+    background-color: #dc2626;
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem 1.8rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  button:hover {
+    background-color: #b91c1c;
+  }
+
+  .post-donation {
+    background-color: #fff5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #dc2626;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-top: 1rem;
+    grid-column: 1 / -1;
+    font-weight: 500;
+  }
+
+  /* Diseases checkboxes grid */
+  .disease-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  .disease-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    background: #fff5f5;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  }
+
+  .disease-options input[type="checkbox"] {
+    transform: scale(1.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    form {
+      grid-template-columns: 1fr;
+    }
+    .disease-options {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="form-container">
+  <h2>{% if form.instance.pk %}Edit Donor Profile{% else %}Register as Donor{% endif %}</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <!-- Personal Info -->
+    <div class="form-section">
+      <h3 style="color:#b91c1c;">Personal Information</h3>
+      <div>
+        {{ form.user.label_tag }}{{ form.user }}
+        <p class="help-text">Full name or username.</p>
+      </div>
+
+      <div>
+        {{ form.city.label_tag }}{{ form.city }}
+        <p class="help-text">Enter your current city.</p>
+      </div>
+
+      <div>
+        {{ form.contact_number.label_tag }}{{ form.contact_number }}
+        <p class="help-text">Phone number for notifications.</p>
+      </div>
+    </div>
+
+    <!-- Medical Info -->
+    <div class="form-section">
+      <h3 style="color:#b91c1c;">Medical Information</h3>
+
+      <div>
+        {{ form.blood_group.label_tag }}{{ form.blood_group }}
+        <p class="help-text">Select your blood type.</p>
+      </div>
+
+      <div class="full-width">
+        <label>Medical Conditions / Diseases</label>
+        <div class="disease-options">
+          {% for checkbox in form.diseases %}
+            <label>{{ checkbox.tag }} {{ checkbox.choice_label }}</label>
+          {% endfor %}
+        </div>
+        <p class="help-text">Select all applicable medical conditions.</p>
+      </div>
+
+      <div class="full-width">
+        {{ form.allergies.label_tag }}{{ form.allergies }}
+        <p class="help-text">List any allergies (optional).</p>
+      </div>
+    </div>
+
+    <!-- Donation Info -->
+    <div class="form-section">
+      <h3 style="color:#b91c1c;">Donation Information</h3>
+
+      <div>
+        {{ form.last_donation_date.label_tag }}{{ form.last_donation_date }}
+        <p class="help-text">You can donate again after 3 months.</p>
+      </div>
+
+      <div class="checkbox-group">
+        {{ form.eligible_for_donation }} {{ form.eligible_for_donation.label_tag }}
+      </div>
+      <p class="help-text">Check if you are currently eligible to donate blood.</p>
+
+      <div class="checkbox-group full-width">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">I agree to the <a href="#" style="color:#b91c1c;">Terms & Conditions</a></label>
+      </div>
+    </div>
+
+    <button type="submit">Save Profile</button>
+
+    {% if form.instance.last_donation_date %}
+    <div class="post-donation">
+      🩸 Last donation: {{ form.instance.last_donation_date }} <br>
+      ✅ Next eligible date: {{ form.instance.last_donation_date|add:"90 days" }}
+    </div>
+    {% endif %}
+
+  </form>
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 <style>
   .form-container {
-    max-width: 500px;
+    max-width: 800px;
     margin: auto;
     padding: 2rem;
     background-color: #ffffff;
@@ -18,30 +18,38 @@
     font-size: 1.75rem;
   }
 
-  .form-container form {
-    display: flex;
-    flex-direction: column;
+  /* Grid for form fields */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem 2rem;
+  }
+
+  .form-grid .full-width {
+    grid-column: span 2;
   }
 
   .form-container label {
-    font-weight: bold;
-    margin-top: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
     display: block;
     color: #374151;
+    font-size: 0.95rem;
   }
 
-  .form-container input, .form-container select {
+  .form-container input,
+  .form-container select {
     padding: 0.6rem;
     border-radius: 6px;
     border: 1px solid #ccc;
-    margin-top: 0.3rem;
     width: 100%;
     box-sizing: border-box;
+    font-size: 0.95rem;
   }
 
   .form-container button {
-    margin-top: 1.5rem;
-    padding: 0.75rem;
+    margin-top: 2rem;
+    padding: 0.9rem;
     background-color: #dc2626;
     color: white;
     border: none;
@@ -49,16 +57,20 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
   }
 
   .form-container button:hover {
     background-color: #b91c1c;
   }
 
+  /* Mobile responsive */
   @media (max-width: 600px) {
-    .form-container {
-      margin: 1rem;
-      padding: 1.5rem;
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-grid .full-width {
+      grid-column: span 1;
     }
   }
 </style>
@@ -67,7 +79,40 @@
   <h2>📝 Register</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="form-grid">
+      <div>
+        <label for="id_first_name">First Name</label>
+        <input type="text" name="first_name" id="id_first_name" required>
+      </div>
+      <div>
+        <label for="id_last_name">Last Name</label>
+        <input type="text" name="last_name" id="id_last_name" required>
+      </div>
+      <div>
+        <label for="id_email">Email</label>
+        <input type="email" name="email" id="id_email" required>
+      </div>
+      <div>
+        <label for="id_username">Username</label>
+        <input type="text" name="username" id="id_username" required>
+      </div>
+      <div>
+        <label for="id_password1">Password</label>
+        <input type="password" name="password1" id="id_password1" required>
+      </div>
+      <div>
+        <label for="id_password2">Confirm Password</label>
+        <input type="password" name="password2" id="id_password2" required>
+      </div>
+      <div class="full-width">
+        <label for="id_role">Register As</label>
+        <select name="role" id="id_role" required>
+          <option value="">-- Select Role --</option>
+          <option value="donor">Donor</option>
+          <option value="recipient">Recipient</option>
+        </select>
+      </div>
+    </div>
     <button type="submit">Create Account</button>
   </form>
 </div>
