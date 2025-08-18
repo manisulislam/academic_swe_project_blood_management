@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .history-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .history-container h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin-bottom: 1.5rem;
+  }
+
+  .request-card {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 5px solid #b91c1c;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: transform 0.2s;
+  }
+
+  .request-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  }
+
+  .request-date {
+    font-weight: bold;
+    color: #374151;
+  }
+
+  .request-details {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.25rem;
+  }
+
+  .status {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 1rem;
+  }
+
+  .status.pending { background-color: #fef3c7; color: #92400e; }
+  .status.approved { background-color: #d1fae5; color: #065f46; }
+  .status.rejected { background-color: #fee2e2; color: #991b1b; }
+
+  @media (max-width: 600px) {
+    .history-container {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div class="history-container">
+  <h2>📋 Your Blood Requests</h2>
+
+  {% for req in history %}
+    <div class="request-card">
+      <div class="request-date">{{ req.requested_on.date }}</div>
+      <div class="request-details">
+        {{ req.blood_group }} — {{ req.units }} unit{{ req.units|pluralize }} 
+        <span class="status {{ req.status|lower }}">{{ req.status }}</span>
+      </div>
+    </div>
+  {% empty %}
+    <p style="text-align: center; color: #777;">You haven’t made any blood requests yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

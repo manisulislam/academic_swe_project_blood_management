@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .profile-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(185, 28, 28, 0.15);
+  }
+  .profile-container h2 {
+    color: #b91c1c;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .profile-info {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.8;
+  }
+  .profile-info strong {
+    color: #b91c1c;
+  }
+  .edit-btn {
+    display: block;
+    margin: 2rem auto 0;
+    text-align: center;
+    background-color: #dc2626;
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+  }
+  .edit-btn:hover {
+    background-color: #b91c1c;
+  }
+</style>
+
+<div class="profile-container">
+  <h2>Your Profile</h2>
+  <div class="profile-info">
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
+    <p><strong>Is Staff:</strong> {{ user.is_staff }}</p>
+    <p><strong>Is Superuser:</strong> {{ user.is_superuser }}</p>
+    <p><strong>Date Joined:</strong> {{ user.date_joined|date:"M d, Y" }}</p>
+    <p><strong>Last Login:</strong> {{ user.last_login|date:"M d, Y H:i" }}</p>
+  </div>
+
+ 
+</div>
+
+{% endblock %}

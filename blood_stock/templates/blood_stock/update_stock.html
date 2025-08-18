@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+
+  .form-container h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9fafb;
+    transition: border 0.3s ease;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: #b91c1c;
+    outline: none;
+    background-color: #ffffff;
+  }
+
+  button {
+    background-color: #b91c1c;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #991b1b;
+  }
+
+  @media (max-width: 600px) {
+    .form-container {
+      padding: 1rem;
+      margin: 1rem;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="form-container">
+  <h2>➕ Update Blood Stock</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add to Stock</button>
+  </form>
+</div>
+{% endblock %}

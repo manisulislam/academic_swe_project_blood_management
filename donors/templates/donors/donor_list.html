@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin: 2rem 0;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  .donor-container {
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    padding: 0 1rem;
+  }
+  .btn-primary {
+    display: inline-block;
+    background-color: #dc2626;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #b91c1c;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(185, 28, 28, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  thead {
+    background-color: #dc2626;
+    color: white;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 15px;
+  }
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  tbody tr:hover {
+    background-color: #fee2e2;
+  }
+  .action-links a {
+    margin-right: 0.8rem;
+    color: #dc2626;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid #dc2626;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+  }
+  .action-links a:hover {
+    background-color: #b91c1c;
+    color: white;
+    border-color: #b91c1c;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .donor-container {
+      padding: 0 0.5rem;
+    }
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    th, td {
+      padding: 10px 8px;
+    }
+  }
+</style>
+
+<div class="donor-container">
+  <h2>Donor List</h2>
+  {% if not user.is_authenticated %}
+    <a href="{% url 'register' %}" class="btn-primary">Register as Donor</a>
+  {% endif %}
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Blood Group</th>
+        <th>Last Donation</th>
+        <th>City</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for donor in donors %}
+      <tr>
+        <td>{{ donor.user.username }}</td>
+        <td>{{ donor.blood_group }}</td>
+        <td>{{ donor.last_donation_date|default:"N/A" }}</td>
+        <td>{{ donor.city }}</td>
+        <td class="action-links">
+          {% if user == donor.user or user.is_staff %}
+          <a href="{% url 'donor_update' donor.pk %}">Edit</a>
+          <a href="{% url 'donor_delete' donor.pk %}">Delete</a>
+          {% else %}
+          <span style="color: #999;">No actions</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" style="text-align:center; padding: 20px;">No donors registered yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

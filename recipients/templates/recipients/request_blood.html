@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .request-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .request-container h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  .form-group input:focus {
+    border-color: #b91c1c;
+    outline: none;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background-color: #b91c1c;
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .submit-btn:hover {
+    background-color: #991b1b;
+  }
+
+  @media (max-width: 600px) {
+    .request-container {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div class="request-container">
+  <h2>🩸 Make Blood Request</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="blood_group">Blood Group</label>
+      <input type="text" name="blood_group" id="blood_group" placeholder="e.g. B+" required>
+    </div>
+    <div class="form-group">
+      <label for="units">Units Needed</label>
+      <input type="number" name="units" id="units" placeholder="Enter units" required min="1">
+    </div>
+    <button type="submit" class="submit-btn">➕ Submit Request</button>
+  </form>
+</div>
+{% endblock %}

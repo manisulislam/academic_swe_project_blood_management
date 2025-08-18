@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .stock-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .stock-container h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin-bottom: 1.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+
+  th, td {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  th {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  tr:hover {
+    background-color: #fef2f2;
+  }
+
+  .no-stock {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .add-stock-btn {
+    display: inline-block;
+    background-color: #b91c1c;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .add-stock-btn:hover {
+    background-color: #991b1b;
+  }
+
+  @media (max-width: 600px) {
+    th, td {
+      padding: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    .add-stock-btn {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="stock-container">
+  <h2>🩸 Blood Stock Overview</h2>
+
+  <table>
+    <tr>
+      <th>Blood Group</th>
+      <th>Units</th>
+    </tr>
+    {% for s in stocks %}
+      <tr>
+        <td>{{ s.blood_group }}</td>
+        <td>{{ s.units }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="2" class="no-stock">No stock yet.</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <a href="{% url 'update_stock' %}" class="add-stock-btn">➕ Add Stock</a>
+</div>
+{% endblock %}

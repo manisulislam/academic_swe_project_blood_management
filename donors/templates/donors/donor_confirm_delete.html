@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .delete-container {
+    max-width: 480px;
+    margin: 3rem auto;
+    background: #ffe6e6;
+    border: 2px solid #e63946;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .delete-container h2 {
+    color: #e63946;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  .delete-container p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #5a1a1a;
+  }
+
+  .delete-container form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .delete-container button,
+  .delete-container a {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .delete-container button {
+    background-color: #e63946;
+    color: white;
+    border: 2px solid #e63946;
+  }
+
+  .delete-container button:hover {
+    background-color: #b71c1c;
+    border-color: #b71c1c;
+  }
+
+  .delete-container a {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #ccc;
+  }
+
+  .delete-container a:hover {
+    background-color: #ddd;
+    border-color: #999;
+  }
+
+  @media (max-width: 480px) {
+    .delete-container {
+      margin: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .delete-container form {
+      flex-direction: column;
+    }
+
+    .delete-container button,
+    .delete-container a {
+      width: 100%;
+      padding: 1rem 0;
+    }
+  }
+</style>
+
+<div class="delete-container">
+  <h2>Confirm Delete</h2>
+  <p>Are you sure you want to delete your donor profile for <strong>{{ donor.user.username }}</strong>?</p>
+  <form method="post">{% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'donor_list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
