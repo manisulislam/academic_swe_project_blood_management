@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import DonorProfile
 from .forms import DonorProfileForm
+from django.db.models import Sum
+
+from blood_stock.models import BloodStock
+from recipients.models import BloodRequest
+
+
+
 
 @login_required
 def user_profile(request):
@@ -69,3 +76,26 @@ def donor_delete(request, pk):
         return redirect('donor_list')
     
     return render(request, 'donors/donor_confirm_delete.html', {'donor': donor})
+
+
+
+
+def blood_chart_view(request):
+    # Total units donated per blood group
+    blood_stock = BloodStock.objects.all()
+    blood_groups = [b.blood_group for b in blood_stock]
+    donated_units = [b.units for b in blood_stock]
+
+    # Total units requested per blood group
+    requests = BloodRequest.objects.filter(status='approved')
+    requested_units = []
+    for bg in blood_groups:
+        total = requests.filter(blood_group=bg).aggregate(Sum('units'))['units__sum'] or 0
+        requested_units.append(total)
+
+    context = {
+        'blood_groups': blood_groups,
+        'donated_units': donated_units,
+        'requested_units': requested_units
+    }
+    return render(request, 'donors/blood_chart.html', context)

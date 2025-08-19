@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login, logout
+import sweetify
 
 def register_view(request):
     if request.method == 'POST':
@@ -8,6 +9,7 @@ def register_view(request):
         if form.is_valid():
             user=form.save()
             print("User created:", user)
+            sweetify.success(request, 'You Registered Successfully. Please log in first.', icon='success')
             return redirect('login')
     else:
         form = CustomUserCreationForm()
@@ -20,9 +22,11 @@ def login_view(request):
         user = authenticate(request, username=u, password=p)
         if user:
             login(request, user)
+            sweetify.success(request, 'You log In  Successfully.', icon='success')
             return redirect('home')
     return render(request, 'accounts/login.html')
 
 def logout_view(request):
     logout(request)
+    sweetify.success(request, 'You Log Out Successfully. Please log in first.', icon='success')
     return redirect('login')

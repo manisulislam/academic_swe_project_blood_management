@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 style="text-align:center; color:#b91c1c; margin:2rem 0;">Blood Donation & Requests Chart</h2>
+
+<canvas id="bloodChart" width="800" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('bloodChart').getContext('2d');
+const bloodChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ blood_groups|safe }},
+        datasets: [
+            {
+                label: 'Donated Blood Units',
+                data: {{ donated_units|safe }},
+                backgroundColor: 'rgba(220, 38, 38, 0.7)',
+                borderColor: 'rgba(185, 28, 28, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Received Blood Units',
+                data: {{ requested_units|safe }},
+                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                borderColor: 'rgba(29, 78, 216,1)',
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Blood Donated vs Blood Received'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Units'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Blood Groups'
+                }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

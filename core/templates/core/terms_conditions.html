@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .terms-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    line-height: 1.7;
+    color: #333;
+  }
+
+  h2 {
+    color: #b91c1c;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  h3 {
+    color: #b91c1c;
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  ul li {
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 600px) {
+    .terms-container {
+      padding: 1rem;
+    }
+    h2 {
+      font-size: 1.6rem;
+    }
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+<div class="terms-container">
+  <h2>Terms & Conditions</h2>
+  <p>Welcome to the Blood Management System. By accessing or using our platform, you agree to comply with the following Terms and Conditions. Please read them carefully before using our services.</p>
+
+  <h3>1. Eligibility</h3>
+  <p>To register as a donor or request blood, you must provide accurate information, including your blood group and contact details. Donors must be in good health and meet the eligibility criteria for blood donation.</p>
+
+  <h3>2. User Responsibilities</h3>
+  <ul>
+    <li>Provide true and up-to-date information.</li>
+    <li>Use the platform only for lawful purposes related to blood donation and requests.</li>
+    <li>Respect the privacy and rights of other users.</li>
+  </ul>
+
+  <h3>3. Donation & Requests</h3>
+  <p>The Blood Management System acts as a platform to connect donors and recipients. We do not guarantee donor availability, eligibility, or compatibility. Medical advice should always be sought before any donation or transfusion.</p>
+
+  <h3>4. Data Usage</h3>
+  <p>By using our platform, you consent to the collection and use of your personal information as outlined in our <a href="{% url 'privacy_policy' %}" style="color:#b91c1c; text-decoration:underline;">Privacy Policy</a>.</p>
+
+  <h3>5. Limitation of Liability</h3>
+  <p>We are not responsible for any medical complications, misuse of information, or outcomes of blood transfusions arranged through the platform.</p>
+
+  <h3>6. Termination</h3>
+  <p>We reserve the right to suspend or terminate accounts that provide false information, misuse the platform, or violate these terms.</p>
+
+  <h3>7. Changes to Terms</h3>
+  <p>We may update these Terms and Conditions at any time. Users will be notified of significant changes.</p>
+
+  <h3>8. Contact Us</h3>
+  <p>For any questions regarding these Terms & Conditions, please contact us at:  
+  <strong>Email:</strong> support@bloodmanagement.com  
+  <strong>Phone:</strong> +880 1234 567890</p>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin: 2rem 0;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.15);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  .faq-card:hover {
+    box-shadow: 0 6px 20px rgba(185, 28, 28, 0.3);
+  }
+
+  .faq-question {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    cursor: pointer;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  .faq-question:hover {
+    background-color: #fde8e8;
+  }
+
+  /* Arrow icon */
+  .faq-question::after {
+    content: "▶"; /* Right arrow */
+    position: absolute;
+    right: 1.2rem;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+  .faq-card.active .faq-question::after {
+    content: "▼"; /* Down arrow when active */
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+    border-top: 1px solid #f3f3f3;
+  }
+
+  .faq-card.active .faq-answer {
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .faq-question {
+      font-size: 1rem;
+      padding: 0.8rem 1rem;
+    }
+    .faq-answer {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<h2>Frequently Asked Questions (FAQ)</h2>
+
+<div class="faq-container">
+  {% for faq in faqs %}
+    <div class="faq-card">
+      <button class="faq-question">{{ faq.q }}</button>
+      <div class="faq-answer">
+        {{ faq.a|linebreaks }}
+      </div>
+    </div>
+  {% empty %}
+    <p style="text-align:center; color:#777; margin-top: 3rem;">No FAQs available.</p>
+  {% endfor %}
+</div>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.parentElement;
+      card.classList.toggle('active');
+    });
+  });
+</script>
+{% endblock %}

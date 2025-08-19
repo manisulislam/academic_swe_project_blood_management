@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood Request Approved</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 650px;
+      margin: 2rem auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      color: #16a34a; /* green for success */
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .highlight {
+      color: #16a34a;
+      font-weight: 700;
+    }
+    .request-details {
+      background-color: #d1fae5;
+      border-left: 6px solid #16a34a;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-size: 1.05rem;
+    }
+    .request-details p {
+      margin: 0.4rem 0;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+      .request-details {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🩸 Blood Request Approved</h1>
+    
+    <p>Dear <span class="highlight">{{ user.first_name }} {{ user.last_name }}</span>,</p>
+    
+    <p>Your blood request has been successfully approved. Here are the details:</p>
+    
+    <div class="request-details">
+      <p><strong>Blood Group:</strong> {{ blood_group }}</p>
+      <p><strong>Units Needed:</strong> {{ units }}</p>
+      <p><strong>Hospital / Location:</strong> {{ hospital }}</p>
+      <p><strong>Urgency:</strong> {{ urgency|title }}</p>
+      <p><strong>Preferred Date & Time:</strong> {{ request_date }} {{ request_time }}</p>
+      {% if reason %}
+      <p><strong>Reason / Notes:</strong> {{ reason }}</p>
+      {% endif %}
+      <p><strong>Request Submitted On:</strong> {{ requested_on }}</p>
+    </div>
+    
+    <p>Thank you for helping save lives! Your contribution is greatly appreciated.</p>
+    
+    <footer>
+      Blood Management System • Together We Save Lives
+    </footer>
+  </div>
+</body>
+</html>

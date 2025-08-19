@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .policy-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    line-height: 1.7;
+    color: #333;
+  }
+
+  h2 {
+    color: #b91c1c;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  h3 {
+    color: #b91c1c;
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  ul li {
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 600px) {
+    .policy-container {
+      padding: 1rem;
+    }
+    h2 {
+      font-size: 1.6rem;
+    }
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+<div class="policy-container">
+  <h2>Privacy Policy</h2>
+  <p>At Blood Management System, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform.</p>
+
+  <h3>1. Information We Collect</h3>
+  <p>We may collect the following information from donors and recipients:</p>
+  <ul>
+    <li>Name, email, phone number, and address</li>
+    <li>Blood group and related health details (only for matching donors/recipients)</li>
+    <li>Login and account information</li>
+  </ul>
+
+  <h3>2. How We Use Your Information</h3>
+  <p>We use the information collected to:</p>
+  <ul>
+    <li>Match blood donors with recipients in need</li>
+    <li>Send important notifications and updates</li>
+    <li>Maintain accurate donor and recipient records</li>
+    <li>Improve our services and user experience</li>
+  </ul>
+
+  <h3>3. Data Protection</h3>
+  <p>We take strict measures to secure your information, including encryption, secure authentication, and restricted access to sensitive data.</p>
+
+  <h3>4. Sharing of Information</h3>
+  <p>Your personal information will never be sold or shared with third parties, except when required by law or with your explicit consent.</p>
+
+  <h3>5. Your Rights</h3>
+  <p>You have the right to:</p>
+  <ul>
+    <li>Access, update, or delete your information</li>
+    <li>Request a copy of the data we hold about you</li>
+    <li>Withdraw consent for data usage at any time</li>
+  </ul>
+
+  <h3>6. Contact Us</h3>
+  <p>If you have any questions about this Privacy Policy, please contact us at:  
+  <strong>Email:</strong> support@bloodmanagement.com  
+  <strong>Phone:</strong> +880 1608 927 009</p>
+</div>
+{% endblock %}
