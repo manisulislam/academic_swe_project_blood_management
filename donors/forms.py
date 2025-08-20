@@ -1,5 +1,7 @@
 from django import forms
+from datetime import date, timedelta
 from .models import DonorProfile
+
 
 class DonorProfileForm(forms.ModelForm):
     last_donation_date = forms.DateField(
@@ -17,7 +19,7 @@ class DonorProfileForm(forms.ModelForm):
     )
     
     diseases = forms.MultipleChoiceField(
-        choices=DonorProfile.DISEASE_CHOICES,  # Show predefined options
+        choices=DonorProfile.DISEASE_CHOICES,
         widget=forms.CheckboxSelectMultiple(),
         required=False
     )
@@ -41,6 +43,25 @@ class DonorProfileForm(forms.ModelForm):
     class Meta:
         model = DonorProfile
         fields = [
-            'blood_group', 'last_donation_date', 'city', 
+            'blood_group', 'last_donation_date', 'city',
             'diseases', 'allergies', 'contact_number', 'eligible_for_donation'
         ]
+
+    # ✅ Validation: Enforce 3 months wait
+    def clean(self):
+        cleaned_data = super().clean()
+        last_donation_date = cleaned_data.get("last_donation_date")
+        eligible = cleaned_data.get("eligible_for_donation")
+
+        if last_donation_date:
+            min_next_donation = last_donation_date + timedelta(days=90)
+            if date.today() < min_next_donation:
+                raise forms.ValidationError(
+                    f"You can donate again only after {min_next_donation.strftime('%d %B %Y')}."
+                )
+
+        # If not eligible, make sure checkbox is False
+        if last_donation_date and date.today() < (last_donation_date + timedelta(days=90)):
+            cleaned_data["eligible_for_donation"] = False
+
+        return cleaned_data

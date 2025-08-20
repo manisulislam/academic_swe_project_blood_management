@@ -135,6 +135,43 @@
   }
 </style>
 
+<!-- sweet alert cdn -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const lastDonationInput = document.querySelector("#id_last_donation_date");
+    const eligibleCheckbox = document.querySelector("#id_eligible_for_donation");
+    const submitButton = document.querySelector("button[type='submit']");
+
+    function checkEligibility() {
+      if (!lastDonationInput.value) return;
+
+      let lastDate = new Date(lastDonationInput.value);
+      let today = new Date();
+      let minNextDate = new Date(lastDate);
+      minNextDate.setDate(minNextDate.getDate() + 90);
+
+      if (today < minNextDate) {
+        eligibleCheckbox.checked = false;
+        eligibleCheckbox.disabled = true;
+        submitButton.disabled = true;
+        Swal.fire({
+          icon: 'error',
+          title: 'Not Eligible Yet',
+          text: 'You can donate again after ' + minNextDate.toDateString(),
+          confirmButtonColor: '#b91c1c'
+        });
+      } else {
+        eligibleCheckbox.disabled = false;
+        submitButton.disabled = false;
+      }
+    }
+
+    lastDonationInput.addEventListener("change", checkEligibility);
+  });
+</script>
+
+
 <div class="form-container">
   <h2>{% if form.instance.pk %}Edit Donor Profile{% else %}Register as Donor{% endif %}</h2>
   <form method="post" novalidate>
