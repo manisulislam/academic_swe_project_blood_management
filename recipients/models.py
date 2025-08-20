@@ -37,3 +37,10 @@ class BloodRequest(models.Model):
 
     def __str__(self):
         return f"{self.user.username} – {self.blood_group} ({self.units} units)"
+    @property
+    def request_date(self):
+        return self.requested_on.date()
+
+    @property
+    def request_time(self):
+        return self.requested_on.time().strftime("%I:%M %p")  # 12-hour format with AM/PM

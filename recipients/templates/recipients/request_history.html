@@ -66,7 +66,10 @@
 
   {% for req in history %}
     <div class="request-card">
-      <div class="request-date">{{ req.requested_on.date }}</div>
+      <div class="request-date">
+  📅 {{ req.requested_on|date:"M d, Y" }}  
+  ⏰ {{ req.requested_on|date:"h:i A" }}
+</div>
       <div class="request-details">
         {{ req.blood_group }} — {{ req.units }} unit{{ req.units|pluralize }} 
         <span class="status {{ req.status|lower }}">{{ req.status }}</span>

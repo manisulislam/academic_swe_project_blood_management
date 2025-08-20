@@ -22,7 +22,12 @@
     gap: 1rem;
   }
 
-  input, select, textarea {
+  label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  input, select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #d1d5db;
@@ -32,7 +37,7 @@
     transition: border 0.3s ease;
   }
 
-  input:focus, select:focus, textarea:focus {
+  input:focus, select:focus {
     border-color: #b91c1c;
     outline: none;
     background-color: #ffffff;
@@ -70,8 +75,21 @@
   <h2>➕ Update Blood Stock</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add to Stock</button>
+
+    <div>
+      {{ form.blood_group.label_tag }}
+      {{ form.blood_group }}
+    </div>
+
+    <div>
+      {{ form.units.label_tag }}
+      {{ form.units }}
+      <small>Units can be 0 or more.</small>
+    </div>
+
+    {% if request.user.is_superuser %}
+  <a href="{% url 'update_stock' %}" class="add-stock-btn">➕ Add Stock</a>
+{% endif %}
   </form>
 </div>
 {% endblock %}

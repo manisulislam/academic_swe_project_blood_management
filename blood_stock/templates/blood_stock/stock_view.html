@@ -40,6 +40,16 @@
     background-color: #fef2f2;
   }
 
+  .available {
+    color: green;
+    font-weight: 700;
+  }
+
+  .unavailable {
+    color: red;
+    font-weight: 700;
+  }
+
   .no-stock {
     text-align: center;
     color: #6b7280;
@@ -82,19 +92,30 @@
     <tr>
       <th>Blood Group</th>
       <th>Units</th>
+      <th>Status</th>
     </tr>
     {% for s in stocks %}
       <tr>
         <td>{{ s.blood_group }}</td>
         <td>{{ s.units }}</td>
+        <td>
+          {% if s.units > 0 %}
+            <span class="available">Available ✅</span>
+          {% else %}
+            <span class="unavailable">Unavailable ❌</span>
+          {% endif %}
+        </td>
       </tr>
     {% empty %}
       <tr>
-        <td colspan="2" class="no-stock">No stock yet.</td>
+        <td colspan="3" class="no-stock">No stock yet.</td>
       </tr>
     {% endfor %}
   </table>
 
+  <!-- <a href="{% url 'update_stock' %}" class="add-stock-btn">➕ Add Stock</a> -->
+  {% if request.user.is_superuser %}
   <a href="{% url 'update_stock' %}" class="add-stock-btn">➕ Add Stock</a>
+{% endif %}
 </div>
 {% endblock %}

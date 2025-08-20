@@ -6,7 +6,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import sweetify
 from blood_stock.models import BloodStock
-
+from donors.models import DonorProfile  # DonorProfile import korte hobe
 
 
 @login_required
@@ -24,11 +24,19 @@ def request_blood(request):
                 stock = None
 
             if stock and stock.units >= blood_request.units:
+                # ✅ Stock available → Approve request
                 blood_request.status = 'approved'
                 stock.units -= blood_request.units
                 stock.save()
-                sweetify.success(request, 'Blood approved successfully. our team provide blood of that location', icon='success')
-                # Send email to user
+                blood_request.save()
+
+                sweetify.success(
+                    request,
+                    'Blood approved successfully. Our team will provide blood at that location',
+                    icon='success'
+                )
+
+                # Send confirmation email to recipient
                 mail_subject = 'Blood Request Submitted'
                 message = render_to_string('recipients/request_blood_mail.html', {
                     'user': request.user,
@@ -47,17 +55,43 @@ def request_blood(request):
                 send_email.send()
 
             else:
-                blood_request.status = 'pending'  # Not enough stock, need to collect later
-                sweetify.success(request, 'Blood pending successfully. Not enought stock. Our team collect this blood.', icon='success')
+                # ❌ Not enough stock → Pending
+                blood_request.status = 'pending'
+                blood_request.save()
 
-            blood_request.save()
+                sweetify.success(
+                    request,
+                    'Blood request pending. Not enough stock. Our team will collect this blood.',
+                    icon='warning'
+                )
 
-            
+                # 🔔 Notify all donors of this blood group
+                donor_emails = DonorProfile.objects.filter(
+                    blood_group=blood_request.blood_group,
+                    eligible_for_donation=True
+                ).values_list("user__email", flat=True)
+
+                donor_emails = list(filter(None, donor_emails))  # remove empty emails
+
+                if donor_emails:
+                    mail_subject = "Urgent Blood Donation Needed!"
+                    message = render_to_string('donors/urgent_request_mail.html', {
+                        'blood_group': blood_request.blood_group,
+                        'units': blood_request.units,
+                        'hospital': blood_request.hospital,
+                        'urgency': blood_request.urgency,
+                        'reason': blood_request.reason,
+                    })
+                    send_email = EmailMultiAlternatives(mail_subject, '', to=donor_emails)
+                    send_email.attach_alternative(message, 'text/html')
+                    send_email.send()
+
             return redirect('request_history')
     else:
         form = BloodRequestForm()
 
     return render(request, 'recipients/request_blood.html', {'form': form})
+
 
 @login_required
 def request_history(request):

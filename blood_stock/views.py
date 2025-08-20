@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import BloodStock
 from .forms import StockForm
 from django.contrib.auth.decorators import login_required
+import sweetify
 
 @login_required
 def stock_view(request):
@@ -18,6 +19,13 @@ def update_stock(request):
             obj, created = BloodStock.objects.get_or_create(blood_group=bg)
             obj.units += u
             obj.save()
+
+            # Sweetify alert
+            if created:
+                sweetify.success(request, f'New stock for {bg} added successfully!', icon='success')
+            else:
+                sweetify.success(request, f'Stock updated for {bg} successfully!', icon='success')
+
             return redirect('view_stock')
     else:
         form = StockForm()
