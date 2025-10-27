@@ -3,6 +3,10 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     ROLE_CHOICES = (
+        ('doctor', 'Doctor'),
+        ('nurse', 'Nurse'),
+        ('staff', 'Staff'),
+        ('patient', 'Patient'),
         ('donor', 'Donor'),
         ('recipient', 'Recipient'),
     )

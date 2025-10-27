@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'blood_stock',
     'core',
     'sweetify',
+    'ambulance',
+    'appointments',
+    'billing',
+    'dashboard',
+    'doctors',
+    'labs',
+    'patients',
+    'pharmacy',
+    'staff'
 
 ]
 
@@ -51,6 +60,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'blood_management.urls'
+LOGIN_REDIRECT_URL = '/redirect-after-login/'
 
 TEMPLATES = [
     {

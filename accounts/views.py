@@ -30,3 +30,16 @@ def logout_view(request):
     logout(request)
     sweetify.success(request, 'You Log Out Successfully. Please log in first.', icon='success')
     return redirect('login')
+
+def redirect_after_login(request):
+    user = request.user
+    if user.role == 'doctor':
+        return redirect('doctor_dashboard')
+    elif user.role == 'donor':
+        return redirect('donor_dashboard')
+    elif user.role == 'recipient':
+        return redirect('recipient_dashboard')
+    elif user.role == 'patient':
+        return redirect('patient_dashboard')
+    else:
+        return redirect('home')
