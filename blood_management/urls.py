@@ -8,4 +8,5 @@ urlpatterns = [
     path('donors/', include('donors.urls')),
     path('recipients/', include('recipients.urls')),
     path('stock/', include('blood_stock.urls')),
+    path('dashboard/', include('dashboard.urls')),
 ]
