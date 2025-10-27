@@ -18,7 +18,6 @@
     font-size: 1.75rem;
   }
 
-  /* Grid for form fields */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -64,7 +63,6 @@
     background-color: #b91c1c;
   }
 
-  /* Mobile responsive */
   @media (max-width: 600px) {
     .form-grid {
       grid-template-columns: 1fr;
@@ -76,7 +74,7 @@
 </style>
 
 <div class="form-container">
-  <h2>📝 Register</h2>
+  <h2>📝 Create Your Account</h2>
   <form method="post">
     {% csrf_token %}
     <div class="form-grid">
@@ -104,15 +102,28 @@
         <label for="id_password2">Confirm Password</label>
         <input type="password" name="password2" id="id_password2" required>
       </div>
+
       <div class="full-width">
         <label for="id_role">Register As</label>
         <select name="role" id="id_role" required>
           <option value="">-- Select Role --</option>
-          <option value="donor">Donor</option>
-          <option value="recipient">Recipient</option>
+
+          <optgroup label="🏥 Hospital Roles">
+            
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="staff">Staff</option>
+            <option value="patient">Patient</option>
+          </optgroup>
+
+          <optgroup label="🩸 Blood Bank Roles">
+            <option value="donor">Donor</option>
+            <option value="recipient">Recipient</option>
+          </optgroup>
         </select>
       </div>
     </div>
+
     <button type="submit">Create Account</button>
   </form>
 </div>
