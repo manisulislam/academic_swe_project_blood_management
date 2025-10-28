@@ -5,7 +5,7 @@
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   }
@@ -27,20 +27,20 @@
     margin-bottom: 0.25rem;
   }
 
-  input, select {
+  input {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #d1d5db;
     border-radius: 8px;
-    font-size: 1rem;
     background-color: #f9fafb;
+    font-size: 1rem;
     transition: border 0.3s ease;
   }
 
-  input:focus, select:focus {
+  input:focus {
     border-color: #b91c1c;
+    background-color: #fff;
     outline: none;
-    background-color: #ffffff;
   }
 
   button {
@@ -59,57 +59,33 @@
     background-color: #991b1b;
   }
 
-  /* Add Stock Button */
-  .add-stock-btn {
-    display: inline-block;
-    text-align: center;
-    background-color: #b91c1c;
-    color: white;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    margin-top: 1rem;
-  }
-
-  .add-stock-btn:hover {
-    background-color: #991b1b;
-  }
-
   @media (max-width: 600px) {
     .form-container {
       padding: 1rem;
       margin: 1rem;
     }
 
-    button, .add-stock-btn {
+    button {
       width: 100%;
     }
   }
 </style>
 
 <div class="form-container">
-  <h2>🩸 Update Blood Stock</h2>
+  <h2>🚑 Request an Ambulance</h2>
   <form method="post">
     {% csrf_token %}
-
     <div>
-      {{ form.blood_group.label_tag }}
-      {{ form.blood_group }}
+      <label for="pickup">Pickup Location</label>
+      <input type="text" id="pickup" name="pickup" placeholder="Enter pickup location" required>
     </div>
 
     <div>
-      {{ form.units.label_tag }}
-      {{ form.units }}
-      <small>Units can be 0 or more.</small>
+      <label for="destination">Destination</label>
+      <input type="text" id="destination" name="destination" placeholder="Enter destination" required>
     </div>
 
-    <button type="submit">💾 Update Stock</button>
+    <button type="submit">📨 Submit Request</button>
   </form>
-
-  {% if request.user.is_superuser %}
-    <a href="{% url 'update_stock' %}" class="add-stock-btn">➕ Add Stock</a>
-  {% endif %}
 </div>
 {% endblock %}

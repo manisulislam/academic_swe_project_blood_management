@@ -1,0 +1,93 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<style>
+  .form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+
+  .form-container h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    transition: border-color 0.3s ease;
+  }
+
+  select:focus, input:focus {
+    border-color: #b91c1c;
+    outline: none;
+    background-color: #fff;
+  }
+
+  button {
+    background-color: #b91c1c;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  button:hover {
+    background-color: #991b1b;
+  }
+
+  @media (max-width: 600px) {
+    .form-container {
+      margin: 1rem;
+      padding: 1.25rem;
+    }
+  }
+</style>
+
+<div class="form-container">
+  <h2>🩺 Book Appointment</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="doctor">Select Doctor</label>
+      <select name="doctor" id="doctor" required>
+        <option value="">-- Choose Doctor --</option>
+        {% for doctor in doctors %}
+          <option value="{{ doctor.id }}">{{ doctor.username }} ({{ doctor.email }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="date">Appointment Date</label>
+      <input type="date" id="date" name="date" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="time">Appointment Time</label>
+      <input type="time" id="time" name="time" required>
+    </div>
+
+    <button type="submit">➕ Create Appointment</button>
+  </form>
+</div>
+{% endblock %}

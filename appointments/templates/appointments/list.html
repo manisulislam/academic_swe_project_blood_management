@@ -1,0 +1,117 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<style>
+  .appointment-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+
+  .appointment-container h2 {
+    text-align: center;
+    color: #b91c1c;
+    margin-bottom: 1.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+  }
+
+  tr:hover {
+    background-color: #fef2f2;
+  }
+
+  .no-data {
+    text-align: center;
+    color: #6b7280;
+    padding: 1rem;
+  }
+
+  .create-btn {
+    display: inline-block;
+    background-color: #b91c1c;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-bottom: 1rem;
+  }
+
+  .create-btn:hover {
+    background-color: #991b1b;
+  }
+
+  @media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    tr {
+      margin-bottom: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    th {
+      display: none;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+  }
+</style>
+
+<div class="appointment-container">
+  <h2>📋 My Appointments</h2>
+
+  <a href="{% url 'create_appointment' %}" class="create-btn">➕ New Appointment</a>
+
+  {% if appointments %}
+    <table>
+      <thead>
+        <tr>
+          <th>Doctor</th>
+          <th>Patient</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in appointments %}
+          <tr>
+            <td>{{ a.doctor.username }}</td>
+            <td>{{ a.patient.username }}</td>
+            <td>{{ a.date }}</td>
+            <td>{{ a.time }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="no-data">No appointments yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
