@@ -1,0 +1,145 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #e5e9ff);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* --- Layout --- */
+.edit-profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  padding: 20px;
+}
+
+.edit-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.1);
+  padding: 40px 50px;
+  max-width: 500px;
+  width: 100%;
+  animation: fadeIn 0.6s ease;
+}
+
+/* --- Header --- */
+.edit-card h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #3f3d56;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* --- Form --- */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.edit-form p {
+  margin: 0;
+}
+
+.edit-form label {
+  font-weight: 500;
+  font-size: 15px;
+  color: #333;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d0d4f2;
+  font-size: 15px;
+  transition: 0.3s;
+  outline: none;
+  background: #f9f9ff;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* --- Save Button --- */
+.save-btn {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* --- Back Link --- */
+.back-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-link a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.back-link a:hover {
+  text-decoration: underline;
+  color: #3730a3;
+}
+
+/* --- Animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .edit-card {
+    padding: 30px 25px;
+  }
+
+  .edit-card h2 {
+    font-size: 22px;
+  }
+
+  .save-btn {
+    font-size: 15px;
+  }
+}

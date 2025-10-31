@@ -12,7 +12,7 @@ def request_ambulance(request):
             pickup_location=pickup,
             destination=destination,
         )
-        return redirect("ambulance_success")
+        return redirect("ambulance_list")
     return render(request, "ambulance/request_form.html")
 
 @login_required

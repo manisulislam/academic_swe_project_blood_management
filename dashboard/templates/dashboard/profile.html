@@ -1,0 +1,64 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="profile-page">
+  <div class="profile-header">
+    <div>
+      <h2>👤 User Profile</h2>
+      <p>Your personal account information</p>
+    </div>
+    <a href="{% url 'dashboard:edit_profile' %}" class="edit-btn">✏️ Update Profile</a>
+  </div>
+
+  <div class="profile-content">
+    <!-- Left Profile Card -->
+    <div class="profile-card">
+      <div class="avatar-container">
+        <img src="https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=random" alt="Profile">
+      </div>
+      <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+      <p class="username">@{{ user.username }}</p>
+      <span class="role">{{ user.get_role_display }}</span>
+
+      <div class="info">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Date Joined:</strong> {{ user.date_joined|date:"M d, Y" }}</p>
+        <p><strong>Last Login:</strong> {{ user.last_login|date:"M d, Y" }}</p>
+      </div>
+    </div>
+
+    <!-- Right Info Sections -->
+    <div class="extra-info">
+      <div class="card">
+        <h4>📝 Notes</h4>
+        <ul>
+          <li>Remember to check donor requests.</li>
+          <li>Requested appointment schedule update.</li>
+        </ul>
+        <button class="small-btn">+ Add Note</button>
+      </div>
+
+      <div class="card">
+        <h4>📁 Documents</h4>
+        <ul>
+          <li>🩸 Blood Report.pdf <span>27 KB</span></li>
+          <li>📋 Prescription.docx <span>52 KB</span></li>
+          <li>🧾 Health Summary.pdf <span>41 KB</span></li>
+        </ul>
+        <button class="small-btn">Upload File</button>
+      </div>
+
+      <div class="card">
+        <h4>💳 Payments</h4>
+        <ul>
+          <li>Consultation Fee <span>$25</span></li>
+          <li>Lab Test <span>$18</span></li>
+          <li>Medicine Purchase <span>$12</span></li>
+        </ul>
+        <button class="small-btn">View All</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

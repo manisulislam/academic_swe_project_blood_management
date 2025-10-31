@@ -1,0 +1,22 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="edit-profile-page">
+  <div class="edit-card">
+    <h2>Edit Profile</h2>
+    <p class="subtitle">Update your personal information</p>
+
+    <form method="POST" class="edit-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit" class="save-btn">💾 Save Changes</button>
+    </form>
+
+    <div class="back-link">
+      <a href="{% url 'dashboard:profile' %}">← Back to Profile</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -133,6 +133,141 @@ iframe {
   .hero-overlay h1 { font-size: 2rem; }
   .hero-overlay p { font-size: 1rem; }
 }
+
+/* MEDICAL RELATED STYLE SHEETS */
+/* Reuse Existing Styles */
+.section {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background-color: #fef2f2;
+  border-left: 5px solid #dc2626;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+  color: #b91c1c;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.section p {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #444;
+}
+
+/* Medical Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-top: 4px solid #dc2626;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.service-card i {
+  font-size: 2.5rem;
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+/* Doctors Section */
+.doctor-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.doctor-card {
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 1.5rem;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.doctor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+.doctor-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 0.8rem;
+  object-fit: cover;
+}
+.doctor-card h4 {
+  color: #b91c1c;
+  margin-bottom: 0.3rem;
+}
+.doctor-card p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Health Tips */
+.tips-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.tip-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 5px solid #dc2626;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.tip-card h4 {
+  color: #b91c1c;
+  margin-bottom: 0.5rem;
+}
+
+/* Emergency Contacts */
+.contact-box {
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.contact-box h3 {
+  color: #b91c1c;
+  margin-bottom: 0.8rem;
+}
+.contact-box a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #dc2626;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.contact-box a:hover {
+  background-color: #b91c1c;
+}
+
 </style>
 
 <!-- Hero Section -->
@@ -148,21 +283,6 @@ iframe {
   </div> -->
 </section>
 
-<!-- Menu -->
-<!-- <ul class="menu">
-  {% if user.is_authenticated %}
-    <li><a href="{% url 'user_profile' %}">My Profile</a></li>
-    <li><a href="{% url 'donor_create' %}">Donor Profile</a></li>
-    <li><a href="{% url 'make_request' %}">Make Blood Request</a></li>
-    <li><a href="{% url 'request_history' %}">Request History</a></li>
-    <li><a href="{% url 'view_stock' %}">View Stock</a></li>
-    <li><a href="{% url 'announcement_create' %}">Announcement</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
-  {% else %}
-    <li><a href="{% url 'login' %}">Login</a></li>
-    <li><a href="{% url 'register' %}">Register</a></li>
-  {% endif %}
-</ul> -->
 
 <!-- Why Blood Donation Matters -->
 <div class="section">
@@ -194,5 +314,99 @@ iframe {
   <h2>🎯 Become a Regular Donor</h2>
   <p>Register your profile, and we’ll notify you when your blood type is in high demand.</p>
 </div>
+
+<!-- 1. Medical Services -->
+<div class="section">
+  <h2>🩺 Our Medical Services</h2>
+  <p>We offer a wide range of healthcare and support services to ensure every patient receives timely, quality treatment.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <i class="fas fa-vial"></i>
+      <h4>Blood Testing</h4>
+      <p>Comprehensive blood testing with accurate diagnostics for patients and donors.</p>
+    </div>
+    <div class="service-card">
+      <i class="fas fa-ambulance"></i>
+      <h4>Emergency Support</h4>
+      <p>24/7 ambulance and emergency assistance available across all regions.</p>
+    </div>
+    <div class="service-card">
+      <i class="fas fa-user-md"></i>
+      <h4>Medical Consultation</h4>
+      <p>Consult top healthcare professionals for expert medical advice and support.</p>
+    </div>
+    <div class="service-card">
+      <i class="fas fa-heartbeat"></i>
+      <h4>Wellness Checkups</h4>
+      <p>Regular health monitoring to keep you informed and in control of your wellbeing.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Meet Our Doctors -->
+<div class="section">
+  <h2>👨‍⚕️ Meet Our Doctors</h2>
+  <p>Our experienced medical professionals are dedicated to providing compassionate care.</p>
+
+  <div class="doctor-list">
+    <div class="doctor-card">
+      <img src="{% static 'images/doctor1.jpg' %}" alt="Dr. A">
+      <h4>Dr. Sarah Khan</h4>
+      <p>Hematologist</p>
+    </div>
+    <div class="doctor-card">
+      <img src="{% static 'images/doctor2.jpg' %}" alt="Dr. B">
+      <h4>Dr. Rafiq Ahmed</h4>
+      <p>Transfusion Specialist</p>
+    </div>
+    <div class="doctor-card">
+      <img src="{% static 'images/doctor3.jpg' %}" alt="Dr. C">
+      <h4>Dr. Anika Rahman</h4>
+      <p>Pathologist</p>
+    </div>
+  </div>
+</div>
+
+<!--  3. Health & Wellness Tips -->
+<div class="section">
+  <h2>💡 Health & Wellness Tips</h2>
+  <p>Small lifestyle changes can make a big difference in your health.</p>
+
+  <div class="tips-list">
+    <div class="tip-card">
+      <h4>💧 Stay Hydrated</h4>
+      <p>Drink at least 8 glasses of water daily to maintain blood volume and energy.</p>
+    </div>
+    <div class="tip-card">
+      <h4>🥗 Eat Iron-Rich Foods</h4>
+      <p>Include spinach, lentils, and meat to keep your hemoglobin levels strong.</p>
+    </div>
+    <div class="tip-card">
+      <h4>😴 Rest Before Donation</h4>
+      <p>Have a good night’s sleep before donating blood to keep your body healthy.</p>
+    </div>
+    <div class="tip-card">
+      <h4>🚶 Stay Active</h4>
+      <p>Regular exercise boosts blood circulation and overall cardiovascular health.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Emergency Contact Section -->
+<div class="section">
+  <h2>🚑 Emergency Contacts</h2>
+  <p>Need urgent help? Reach out to our emergency units anytime.</p>
+
+  <div class="contact-box">
+    <h3>Call 24/7 Emergency Helpline</h3>
+    <p><strong>📞 +880-123-456-789</strong></p>
+    <a href="{% url 'request_ambulance' %}">Request an Ambulance</a>
+  </div>
+</div>
+
+<!-- Include Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 
 {% endblock %}
